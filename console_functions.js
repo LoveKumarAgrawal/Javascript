@@ -1,0 +1,12 @@
+console.time("This code took ");
+console.log('Hello World');
+console.log(10);
+console.log(10+10);
+console.warn("this is a warning");
+console.error("This is a error");
+console.log([5,6,9,8,7]);
+console.log({love:"developer",love2:"judge",love3:"Engineer"});
+console.table({love:"developer",love2:"judge",love3:"Engineer"});
+console.assert(10/2==0, "ten divide by 2 is not equal to 0");
+console.timeEnd("This code took ");
+// console.clear();
