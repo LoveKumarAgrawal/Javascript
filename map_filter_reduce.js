@@ -45,3 +45,34 @@
 
 // const arr = [1, [[[10, 20, 30, 40]]], 5, [100, 200, 300, 400], 6]
 // console.log(arr.flat(Infinity));
+
+
+
+// Polyfill for map()
+Array.prototype.myMap = function (cb) {
+    let temp = []
+    for(let i=0;i<this.length;i++) {
+        temp.push(cb(this[i], i, this))
+    }
+    return temp
+}
+
+// Polyfill for filter()
+Array.prototype.myFilter = function (cb) {
+    let temp = []
+    for(let i=0;i<this.length;i++) {
+        if(cb(this[i], i, this)) temp.push(this[i])
+    }
+    return temp
+}
+
+// Polyfill for reduce()
+Array.prototype.myReduce = function (cb, initialValue) {
+    let accumulator = initialValue;
+    for(let i=0;i<this.length;i++) {
+        accumulator = accumulator?cb(accumulator, this[i], i, this):this[i]
+    }
+    return accumulator
+}
+
+// Question 1 : map() vs forEach()
