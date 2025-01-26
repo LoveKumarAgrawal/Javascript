@@ -31,3 +31,64 @@ Array.prototype.myReduce = function (cb, initialValue) {
     }
     return accumulator
 }
+
+// Polyfill for call()
+
+Function.prototype.myCall = function(context={}, ...args) {
+    if(typeof this !== "function") {
+        throw new Error(this + "it is not callable")
+    }
+    context.fn = this
+    context.fn(...args)
+}
+
+// Polyfill for apply()
+
+Function.prototype.myApply = function(context={}, args=[]) {
+    if(typeof this !== "function") {
+        throw new Error(this + "It's not callable")
+    }
+    if(!Array.isArray(args)) {
+        throw new Error("CreateListFromArrayLike called on non-object")
+    }
+    context.fn = this
+    context.fn(...list)
+}
+
+// Polyfill for bind()
+
+Function.prototype.myBind = function(context={}, ...args) {
+    if(typeof this !== "function") {
+        throw new Error(this + "cannot be bound as it's not callable")
+    }
+    context.fn = this
+
+    return function(...args2) {
+        return context.fn(...args2, ...args)
+    }
+}
+
+// Polyfill for debounce - Lodash Library Function
+
+const myDebounce = (cb, delay) => {
+    let timer
+
+    return function(...args) {
+        if(timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+            cb(...args)
+        }, delay)
+    }
+}
+
+// Polyfill for throttle - Lodash Library Function
+
+const myThrottle = (cb, delay) => {
+    let last = 0
+    return (...args) => {
+        let now = new Date().getTime()
+        if(now-last < d) return;
+        last = now
+        return cb(...args);
+    }
+}
