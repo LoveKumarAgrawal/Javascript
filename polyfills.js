@@ -92,3 +92,16 @@ const myThrottle = (cb, delay) => {
         return cb(...args);
     }
 }
+
+// Polyfill for memoize
+
+function myMemoize(fn, context) {
+    let result = {}
+    return function(...args) {
+        let cacheArgs = JSON.stringify(args)
+        if(!result[cacheArgs]) {
+            result[cacheArgs] = fn.call(context||this, ...args);
+        }
+        return result[cacheArgs]
+    }
+}
