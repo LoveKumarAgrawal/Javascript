@@ -105,3 +105,23 @@ function myMemoize(fn, context) {
         return result[cacheArgs]
     }
 }
+
+
+// Polyfill for Once function -> A function which can only be called once
+
+function Once(fn, context) {
+    let ran;
+
+    return function () {
+        if (fn) {
+            ran = fn.apply(context||this, arguments);
+            fn = null
+        }
+        return ran
+    }
+}
+
+const mutliply = Once((a, b) => console.log(a*b))
+
+mutliply(2,3) // Will going to give 6
+mutliply(4,5) // won't give anything
